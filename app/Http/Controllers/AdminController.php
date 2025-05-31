@@ -20,6 +20,11 @@ class AdminController extends Controller
 
          $category->category_name = $request->category;
 
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('uploads', 'public');
+            $category->image = $path;
+        }
+
         $category->save();
 
         return redirect()->back()->with('message', 'Category added successfully');
